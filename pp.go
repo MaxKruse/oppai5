@@ -1,6 +1,7 @@
 package oppai
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -195,7 +196,9 @@ func (pp *PPv2) ppv2x(aimStars, speedStars float64,
 
 	/* speed pp -------------------------------------------- */
 	pp.Speed = ppBase(speedStars)
+	fmt.Printf("%.3f ", pp.Speed)
 	pp.Speed *= lengthBonus
+	fmt.Printf("%.3f ", pp.Speed)
 	if nmiss > 0 {
 		pp.Speed *= missPenaltySpeed
 	}
@@ -204,6 +207,7 @@ func (pp *PPv2) ppv2x(aimStars, speedStars float64,
 		pp.Speed *= 1.0 + math.Min(arBonus, arBonus*(float64(nobjects)/1000.0))
 	}
 	pp.Speed *= hdBonus
+	fmt.Printf("%.3f ", pp.Speed)
 
 	if (mods & ModsRX) != 0 {
 		pp.Speed *= (0.98 + float64(od_squared)/750.0) *
@@ -215,6 +219,7 @@ func (pp *PPv2) ppv2x(aimStars, speedStars float64,
 		pp.Speed *= (0.95 + float64(od_squared)/750.0) *
 			pow(accuracy, (14.5-math.Max(float64(mapstats.OD), 8.0))/2.0)
 	}
+	fmt.Printf("%.3f ", pp.Speed)
 
 	if (mods & ModsRX) != 0 {
 		pp.Speed *= pow(0.99, math.Max(0.0, (float64(n50)-float64(nobjects)/666.0)))
@@ -223,6 +228,7 @@ func (pp *PPv2) ppv2x(aimStars, speedStars float64,
 	} else {
 		pp.Speed *= pow(0.98, math.Max(0.0, (float64(n50)-float64(nobjects)/500.0)))
 	}
+	fmt.Printf("%.3f ", pp.Speed)
 
 	// Apply Aim/Speed Difference for relax/ap only
 
@@ -254,6 +260,7 @@ func (pp *PPv2) ppv2x(aimStars, speedStars float64,
 		}
 
 	}
+	fmt.Printf("%.3f ", pp.Speed)
 
 	/* acc pp ---------------------------------------------- */
 	pp.Acc = pow(1.52163, float64(mapstats.OD)) *
